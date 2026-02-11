@@ -40,6 +40,7 @@ async function findOrCreateOAuthUser(profile, provider) {
     email: email || `${profile.id}@${provider}.oauth`,
     password_hash: randomPassword,
     nombre: displayName,
+    apellidos: '',
     id_rol: 2,
     estado_cuenta: 'activo'
   });
