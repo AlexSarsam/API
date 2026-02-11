@@ -1,0 +1,13 @@
+node_modules
+npm-debug.log
+.env
+.env.*
+.git
+.gitignore
+*.md
+backup_*.sql
+fitness_platform_structure.sql
+fitmeal_clean.sql
+init.sql
+DOCKER.md
+MIGRACION_COMPLETADA.md

@@ -1,0 +1,735 @@
+openapi: 3.0.0
+info:
+  title: FitMeal API
+  description: Documentación oficial de la API FitMeal
+  version: 1.0.0
+servers:
+- url: http://localhost:3000
+  description: Servidor Local
+
+paths:
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: Registro de usuario con email y password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+        required: true
+      responses:
+        "201":
+          description: Usuario registrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "400":
+          description: Datos inválidos
+        "500":
+          description: Error del servidor
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login de usuario con email y password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+        required: true
+      responses:
+        "200":
+          description: Login exitoso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: Credenciales inválidas
+        "500":
+          description: Error del servidor
+  /auth/verify:
+    get:
+      tags:
+      - Auth
+      summary: Verificar token JWT
+      responses:
+        "200":
+          description: Token válido
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerifyResponse"
+        "401":
+          description: Token inválido o ausente
+        "500":
+          description: Error del servidor
+      security:
+      - BearerAuth: []
+  /auth/github:
+    get:
+      tags:
+      - OAuth
+      summary: Iniciar login con GitHub
+      responses:
+        "302":
+          description: Redirección a GitHub para autenticación
+      security:
+      - GitHubOAuth: []
+  /auth/github/callback:
+    get:
+      tags:
+      - OAuth
+      summary: Callback de GitHub OAuth
+      responses:
+        "200":
+          description: Login con GitHub completado
+        "500":
+          description: Error en la autenticación con GitHub
+  /auth/google:
+    get:
+      tags:
+      - OAuth
+      summary: Iniciar login con Google
+      responses:
+        "302":
+          description: Redirección a Google para autenticación
+      security:
+      - GoogleOAuth: []
+  /auth/google/callback:
+    get:
+      tags:
+      - OAuth
+      summary: Callback de Google OAuth
+      responses:
+        "200":
+          description: Login con Google completado
+        "500":
+          description: Error en la autenticación con Google
+  /api/users:
+    get:
+      tags:
+      - Usuarios
+      summary: Obtener todos los usuarios
+      responses:
+        "200":
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsersListResponse"
+        "500":
+          description: Error al obtener usuarios
+    post:
+      tags:
+      - Usuarios
+      summary: Crear un nuevo usuario
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreate"
+        required: true
+      responses:
+        "200":
+          description: Usuario creado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200"
+        "500":
+          description: Error al crear usuario
+  /api/users/{id}:
+    get:
+      tags:
+      - Usuarios
+      summary: Obtener un usuario por ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_1"
+        "404":
+          description: Usuario no encontrado
+        "500":
+          description: Error al obtener usuario
+    put:
+      tags:
+      - Usuarios
+      summary: Actualizar un usuario por ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpdate"
+        required: true
+      responses:
+        "200":
+          description: Usuario actualizado con éxito
+        "404":
+          description: Usuario no encontrado
+        "500":
+          description: Error al actualizar usuario
+    delete:
+      tags:
+      - Usuarios
+      summary: Eliminar un usuario por ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Usuario eliminado con éxito
+        "404":
+          description: Usuario no encontrado
+        "500":
+          description: Error al eliminar usuario
+  /api/products:
+    get:
+      tags:
+      - Productos
+      summary: Obtener todos los productos
+      responses:
+        "200":
+          description: Lista de productos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductsListResponse"
+        "500":
+          description: Error al obtener productos
+    post:
+      tags:
+      - Productos
+      summary: Crear un nuevo producto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductCreate"
+        required: true
+      responses:
+        "200":
+          description: Producto creado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_2"
+        "500":
+          description: Error al crear producto
+  /api/products/{id}:
+    get:
+      tags:
+      - Productos
+      summary: Obtener un producto por ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Producto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_3"
+        "404":
+          description: Producto no encontrado
+        "500":
+          description: Error al obtener producto
+    put:
+      tags:
+      - Productos
+      summary: Actualizar un producto por ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductUpdate"
+        required: true
+      responses:
+        "200":
+          description: Producto actualizado con éxito
+        "404":
+          description: Producto no encontrado
+        "500":
+          description: Error al actualizar producto
+    delete:
+      tags:
+      - Productos
+      summary: Eliminar un producto por ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Producto eliminado con éxito
+        "404":
+          description: Producto no encontrado
+        "500":
+          description: Error al eliminar producto
+  /api/plans:
+    get:
+      tags:
+      - Planes
+      summary: Obtener todos los planes
+      responses:
+        "200":
+          description: Lista de planes
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlansListResponse"
+        "500":
+          description: Error al obtener planes
+    post:
+      tags:
+      - Planes
+      summary: Crear un nuevo plan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlanCreate"
+        required: true
+      responses:
+        "200":
+          description: Plan creado con éxito
+        "500":
+          description: Error al crear plan
+  /api/plans/{id}:
+    get:
+      tags:
+      - Planes
+      summary: Obtener un plan por ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Plan encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/inline_response_200_4"
+        "404":
+          description: Plan no encontrado
+        "500":
+          description: Error al obtener plan
+    put:
+      tags:
+      - Planes
+      summary: Actualizar un plan por ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlanUpdate"
+        required: true
+      responses:
+        "200":
+          description: Plan actualizado con éxito
+        "404":
+          description: Plan no encontrado
+        "500":
+          description: Error al actualizar plan
+    delete:
+      tags:
+      - Planes
+      summary: Eliminar un plan por ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Plan eliminado con éxito
+        "404":
+          description: Plan no encontrado
+        "500":
+          description: Error al eliminar plan
+components:
+  schemas:
+    RegisterRequest:
+      required:
+      - email
+      - nombre
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+        nombre:
+          type: string
+        apellidos:
+          type: string
+        telefono:
+          type: string
+        fecha_nacimiento:
+          type: string
+          format: date
+    LoginRequest:
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+    AuthUser:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        nombre:
+          type: string
+        apellidos:
+          type: string
+        rol:
+          type: integer
+    AuthResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        token:
+          type: string
+        user:
+          $ref: "#/components/schemas/AuthUser"
+    VerifyResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        user:
+          $ref: "#/components/schemas/AuthUser"
+    User:
+      type: object
+      properties:
+        id_usuario:
+          type: integer
+        email:
+          type: string
+        password_hash:
+          type: string
+        nombre:
+          type: string
+        apellidos:
+          type: string
+        telefono:
+          type: string
+        fecha_nacimiento:
+          type: string
+          format: date
+        id_rol:
+          type: integer
+        estado_cuenta:
+          type: string
+        ultimo_acceso:
+          type: string
+          format: date-time
+    UserCreate:
+      required:
+      - email
+      - nombre
+      - password_hash
+      type: object
+      properties:
+        email:
+          type: string
+        password_hash:
+          type: string
+          description: Contraseña ya hasheada con bcrypt
+        nombre:
+          type: string
+        apellidos:
+          type: string
+        telefono:
+          type: string
+        fecha_nacimiento:
+          type: string
+          format: date
+        id_rol:
+          type: integer
+          default: 2
+        estado_cuenta:
+          type: string
+          default: activo
+    UserUpdate:
+      type: object
+      properties:
+        email:
+          type: string
+        nombre:
+          type: string
+        apellidos:
+          type: string
+        telefono:
+          type: string
+        fecha_nacimiento:
+          type: string
+          format: date
+        id_rol:
+          type: integer
+        estado_cuenta:
+          type: string
+        ultimo_acceso:
+          type: string
+          format: date-time
+    UsersListResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
+    Product:
+      type: object
+      properties:
+        id_producto:
+          type: integer
+        nombre:
+          type: string
+        descripcion:
+          type: string
+        precio:
+          type: number
+          format: float
+        stock:
+          type: integer
+        id_categoria:
+          type: integer
+        imagen_url:
+          type: string
+        estado:
+          type: string
+    ProductCreate:
+      required:
+      - nombre
+      - precio
+      type: object
+      properties:
+        nombre:
+          type: string
+        descripcion:
+          type: string
+        precio:
+          type: number
+          format: float
+        stock:
+          type: integer
+          default: 0
+        id_categoria:
+          type: integer
+        imagen_url:
+          type: string
+        estado:
+          type: string
+          default: disponible
+    ProductUpdate:
+      type: object
+      properties:
+        nombre:
+          type: string
+        descripcion:
+          type: string
+        precio:
+          type: number
+          format: float
+        stock:
+          type: integer
+        id_categoria:
+          type: integer
+        imagen_url:
+          type: string
+        estado:
+          type: string
+    ProductsListResponse:
+      type: object
+      properties:
+        productos:
+          type: array
+          items:
+            $ref: "#/components/schemas/Product"
+    Plan:
+      type: object
+      properties:
+        id_plan:
+          type: integer
+        nombre:
+          type: string
+        descripcion:
+          type: string
+        precio_mensual:
+          type: number
+          format: float
+        duracion_dias:
+          type: integer
+        caracteristicas:
+          type: string
+        estado:
+          type: string
+    PlanCreate:
+      required:
+      - nombre
+      - precio_mensual
+      type: object
+      properties:
+        nombre:
+          type: string
+        descripcion:
+          type: string
+        precio_mensual:
+          type: number
+          format: float
+        duracion_dias:
+          type: integer
+          default: 30
+        caracteristicas:
+          type: string
+        estado:
+          type: string
+          default: activo
+    PlanUpdate:
+      type: object
+      properties:
+        nombre:
+          type: string
+        descripcion:
+          type: string
+        precio_mensual:
+          type: number
+          format: float
+        duracion_dias:
+          type: integer
+        caracteristicas:
+          type: string
+        estado:
+          type: string
+    PlansListResponse:
+      type: object
+      properties:
+        plans:
+          type: array
+          items:
+            $ref: "#/components/schemas/Plan"
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: string
+    inline_response_200:
+      type: object
+      properties:
+        message:
+          type: string
+        userId:
+          type: integer
+        user:
+          $ref: "#/components/schemas/UserCreate"
+    inline_response_200_1:
+      type: object
+      properties:
+        user:
+          $ref: "#/components/schemas/User"
+    inline_response_200_2:
+      type: object
+      properties:
+        message:
+          type: string
+        productId:
+          type: integer
+        product:
+          $ref: "#/components/schemas/ProductCreate"
+    inline_response_200_3:
+      type: object
+      properties:
+        product:
+          $ref: "#/components/schemas/Product"
+    inline_response_200_4:
+      type: object
+      properties:
+        plan:
+          $ref: "#/components/schemas/Plan"
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    GitHubOAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://github.com/login/oauth/authorize
+          tokenUrl: https://github.com/login/oauth/access_token
+          scopes:
+            read:user: Acceso al perfil de usuario de GitHub
+    GoogleOAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            email: Acceso al email del usuario
+            profile: Acceso al perfil básico

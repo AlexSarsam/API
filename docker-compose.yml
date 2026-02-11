@@ -1,0 +1,94 @@
+version: '3.8'
+
+name: FitMeal
+
+services:
+  # ============================================
+  # BASE DE DATOS MYSQL (Solo accesible internamente)
+  # ============================================
+  fitmeal-db:
+    image: mysql:8.0
+    container_name: FitMeal
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: FitMealRoot123
+      MYSQL_DATABASE: fitness_platform
+      MYSQL_USER: fitmeal_user
+      MYSQL_PASSWORD: FitMeal123
+    # Puerto expuesto para MySQL Workbench y acceso externo
+    ports:
+      - "3306:3306"
+    volumes:
+      - fitmeal-data:/var/lib/mysql
+      - ./fitmeal_clean.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    networks:
+      - fitmeal-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pFitMealRoot123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: --default-authentication-plugin=mysql_native_password
+
+  # ============================================
+  # API NODE.JS (Accesible desde red local)
+  # ============================================
+  fitmeal-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fitmeal-api
+    restart: always
+    ports:
+      - "0.0.0.0:3000:3000"  # Accesible desde cualquier IP de tu red local
+    environment:
+      DB_HOST: fitmeal-db
+      DB_USER: root
+      DB_PASSWORD: FitMealRoot123
+      DB_NAME: fitness_platform
+      DB_PORT: 3306
+      PORT: 3000
+      JWT_SECRET: ${JWT_SECRET}
+      SESSION_SECRET: ${SESSION_SECRET}
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
+      GITHUB_CALLBACK_URL: ${GITHUB_CALLBACK_URL}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      GOOGLE_CALLBACK_URL: ${GOOGLE_CALLBACK_URL}
+      NODE_ENV: development
+    depends_on:
+      fitmeal-db:
+        condition: service_healthy
+    networks:
+      - fitmeal-network
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  # ============================================
+  # PHPMYADMIN (Administrar BD desde navegador)
+  # ============================================
+  fitmeal-phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: fitmeal-phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: fitmeal-db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: FitMealRoot123
+    ports:
+      - "8080:80"
+    depends_on:
+      - fitmeal-db
+    networks:
+      - fitmeal-network
+
+volumes:
+  fitmeal-data:
+    driver: local
+
+networks:
+  fitmeal-network:
+    driver: bridge
