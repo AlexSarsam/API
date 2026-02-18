@@ -10,7 +10,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <span className="text-2xl font-bold text-green-400">FitMeal</span>
+            <span className="text-2xl font-bold text-red-500">FitMeal</span>
           </Link>
 
           {/* Navigation */}
@@ -18,7 +18,7 @@ export default function Navbar() {
             {isAuthenticated ? (
               <>
                 <span className="text-gray-300 text-sm">
-                  Hola, <span className="text-green-400 font-medium">{user?.nombre || user?.email}</span>
+                  Hola, <span className="text-red-500 font-medium">{user?.nombre || user?.email}</span>
                 </span>
                 <button
                   onClick={logout}
@@ -37,7 +37,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   to="/register"
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                 >
                   Registrarse
                 </Link>

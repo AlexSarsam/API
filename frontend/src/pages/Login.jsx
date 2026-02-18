@@ -38,7 +38,7 @@ export default function Login() {
 
           {/* Error */}
           {error && (
-            <div className="bg-red-900/50 border border-red-800 text-red-300 px-4 py-3 rounded-lg mb-6 text-sm">
+            <div className="bg-gray-800 border border-gray-700 text-gray-300 px-4 py-3 rounded-lg mb-6 text-sm">
               {error}
             </div>
           )}
@@ -55,7 +55,7 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors"
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
                 placeholder="tu@email.com"
               />
             </div>
@@ -70,7 +70,7 @@ export default function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors"
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
                 placeholder="Tu contrasena"
               />
             </div>
@@ -78,7 +78,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-800 disabled:cursor-not-allowed text-white py-3 rounded-lg font-medium transition-colors cursor-pointer"
+              className="w-full bg-red-600 hover:bg-red-700 disabled:bg-red-800 disabled:cursor-not-allowed text-white py-3 rounded-lg font-medium transition-colors cursor-pointer"
             >
               {loading ? 'Iniciando sesion...' : 'Iniciar sesion'}
             </button>
@@ -119,7 +119,7 @@ export default function Login() {
           {/* Register link */}
           <p className="text-center text-gray-400 mt-6 text-sm">
             No tienes cuenta?{' '}
-            <Link to="/register" className="text-green-400 hover:text-green-300 font-medium">
+            <Link to="/register" className="text-red-500 hover:text-red-400 font-medium">
               Registrate
             </Link>
           </p>

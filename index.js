@@ -61,6 +61,48 @@ app.use('/api/products', productsRouter);
 app.use('/api/plans', plansRouter);
 
 // ============================================
+// RUTA DE BIENVENIDA
+// ============================================
+
+app.get('/', (req, res) => {
+  res.json({
+    message: '🎯 Bienvenido a FitMeal API',
+    version: '1.0.0',
+    documentation: `http://localhost:${port}/api-docs`,
+    endpoints: {
+      authentication: {
+        register: 'POST /auth/register',
+        login: 'POST /auth/login',
+        verify: 'GET /auth/verify',
+        github: 'GET /auth/github',
+        google: 'GET /auth/google'
+      },
+      users: {
+        list: 'GET /api/users',
+        get: 'GET /api/users/:id',
+        update: 'PUT /api/users/:id',
+        delete: 'DELETE /api/users/:id'
+      },
+      products: {
+        list: 'GET /api/products',
+        create: 'POST /api/products',
+        get: 'GET /api/products/:id',
+        update: 'PUT /api/products/:id',
+        delete: 'DELETE /api/products/:id'
+      },
+      plans: {
+        list: 'GET /api/plans',
+        create: 'POST /api/plans',
+        get: 'GET /api/plans/:id',
+        update: 'PUT /api/plans/:id',
+        delete: 'DELETE /api/plans/:id'
+      }
+    },
+    status: 'online'
+  });
+});
+
+// ============================================
 // MANEJO DE ERRORES
 // ============================================
 
@@ -83,7 +125,7 @@ app.use((err, req, res, next) => {
 // INICIAR SERVIDOR
 // ============================================
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${port}`);
-  console.log(`📚 Documentación API: http://localhost:${port}/api-docs`);
+  console.log(`📖 Documentación en http://localhost:${port}/api-docs`);
 });

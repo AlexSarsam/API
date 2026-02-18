@@ -9,7 +9,7 @@ export default function Home() {
       {/* Hero Section */}
       <div className="text-center max-w-3xl">
         <h1 className="text-5xl sm:text-6xl font-bold text-white mb-4">
-          Fit<span className="text-green-400">Meal</span>
+          Fit<span className="text-red-500">Meal</span>
         </h1>
         <p className="text-xl text-gray-400 mb-8">
           Tu plataforma de fitness personalizada. Ejercicios, comidas y planes adaptados a ti.
@@ -18,7 +18,7 @@ export default function Home() {
         {isAuthenticated ? (
           <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 max-w-md mx-auto">
             <h2 className="text-2xl font-semibold text-white mb-2">
-              Bienvenido, <span className="text-green-400">{user?.nombre}</span>
+              Bienvenido, <span className="text-red-500">{user?.nombre}</span>
             </h2>
             <p className="text-gray-400 mb-6">Tu sesion esta activa</p>
             <div className="grid gap-3">
@@ -36,7 +36,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/register"
-              className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl text-lg font-medium transition-colors"
+              className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-xl text-lg font-medium transition-colors"
             >
               Empezar ahora
             </Link>

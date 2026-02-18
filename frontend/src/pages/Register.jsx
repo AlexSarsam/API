@@ -50,7 +50,7 @@ export default function Register() {
     }
   };
 
-  const inputClass = "w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors";
+  const inputClass = "w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors";
 
   return (
     <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gray-950 px-4 py-8">
@@ -64,7 +64,7 @@ export default function Register() {
 
           {/* Error */}
           {error && (
-            <div className="bg-red-900/50 border border-red-800 text-red-300 px-4 py-3 rounded-lg mb-6 text-sm">
+            <div className="bg-gray-800 border border-gray-700 text-gray-300 px-4 py-3 rounded-lg mb-6 text-sm">
               {error}
             </div>
           )}
@@ -189,7 +189,7 @@ export default function Register() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-800 disabled:cursor-not-allowed text-white py-3 rounded-lg font-medium transition-colors mt-2 cursor-pointer"
+              className="w-full bg-red-600 hover:bg-red-700 disabled:bg-red-800 disabled:cursor-not-allowed text-white py-3 rounded-lg font-medium transition-colors mt-2 cursor-pointer"
             >
               {loading ? 'Creando cuenta...' : 'Crear cuenta'}
             </button>
@@ -198,7 +198,7 @@ export default function Register() {
           {/* Login link */}
           <p className="text-center text-gray-400 mt-6 text-sm">
             Ya tienes cuenta?{' '}
-            <Link to="/login" className="text-green-400 hover:text-green-300 font-medium">
+            <Link to="/login" className="text-red-500 hover:text-red-400 font-medium">
               Inicia sesion
             </Link>
           </p>
