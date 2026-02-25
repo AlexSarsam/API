@@ -26,14 +26,13 @@ export default function Register() {
     e.preventDefault();
     setError('');
 
-    // Validar passwords
     if (formData.password !== formData.confirmPassword) {
-      setError('Las contrasenas no coinciden');
+      setError('Las contraseñas no coinciden');
       return;
     }
 
     if (formData.password.length < 6) {
-      setError('La contrasena debe tener al menos 6 caracteres');
+      setError('La contraseña debe tener al menos 6 caracteres');
       return;
     }
 
@@ -50,31 +49,38 @@ export default function Register() {
     }
   };
 
-  const inputClass = "w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors";
+  const inputClass = "w-full px-4 py-3 bg-gray-800/80 border border-gray-700 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors";
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gray-950 px-4 py-8">
-      <div className="w-full max-w-md">
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">Crear cuenta</h1>
-            <p className="text-gray-400">Unete a FitMeal</p>
+    <div
+      className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat p-4"
+      style={{ backgroundImage: "url('/fondologin.png')" }}
+    >
+      {/* Card contenedor de 2 columnas — invertido respecto al Login */}
+      <div className="w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl flex min-h-[600px]">
+
+        {/* ── Panel izquierdo: formulario ── */}
+        <div className="flex flex-col justify-center w-full md:w-1/2 bg-gray-950/85 backdrop-blur-sm p-10 overflow-y-auto">
+          {/* Cabecera */}
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="text-2xl font-bold text-white">Crear cuenta</h1>
+            <span className="text-gray-500 text-sm cursor-pointer hover:text-gray-300 transition-colors">¿Necesitas ayuda?</span>
           </div>
 
           {/* Error */}
           {error && (
-            <div className="bg-gray-800 border border-gray-700 text-gray-300 px-4 py-3 rounded-lg mb-6 text-sm">
+            <div className="bg-red-900/40 border border-red-700/60 text-red-300 px-4 py-3 rounded-xl mb-5 text-sm">
               {error}
             </div>
           )}
 
-          {/* Form */}
+          {/* Formulario */}
           <form onSubmit={handleSubmit} className="space-y-4">
+
             {/* Nombre y Apellidos */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label htmlFor="nombre" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="nombre" className="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
                   Nombre *
                 </label>
                 <input
@@ -89,7 +95,7 @@ export default function Register() {
                 />
               </div>
               <div>
-                <label htmlFor="apellidos" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="apellidos" className="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
                   Apellidos
                 </label>
                 <input
@@ -106,8 +112,8 @@ export default function Register() {
 
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
-                Email *
+              <label htmlFor="email" className="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
+                Correo electrónico *
               </label>
               <input
                 id="email"
@@ -117,15 +123,15 @@ export default function Register() {
                 onChange={handleChange}
                 required
                 className={inputClass}
-                placeholder="tu@email.com"
+                placeholder="nombre@ejemplo.com"
               />
             </div>
 
             {/* Password y Confirmar */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1">
-                  Contrasena *
+                <label htmlFor="password" className="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
+                  Contraseña *
                 </label>
                 <input
                   id="password"
@@ -135,11 +141,11 @@ export default function Register() {
                   onChange={handleChange}
                   required
                   className={inputClass}
-                  placeholder="Min. 6 caracteres"
+                  placeholder="Mín. 6 caracteres"
                 />
               </div>
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="confirmPassword" className="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
                   Confirmar *
                 </label>
                 <input
@@ -158,8 +164,8 @@ export default function Register() {
             {/* Telefono y Fecha nacimiento */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label htmlFor="telefono" className="block text-sm font-medium text-gray-300 mb-1">
-                  Telefono
+                <label htmlFor="telefono" className="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
+                  Teléfono
                 </label>
                 <input
                   id="telefono"
@@ -172,7 +178,7 @@ export default function Register() {
                 />
               </div>
               <div>
-                <label htmlFor="fecha_nacimiento" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="fecha_nacimiento" className="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
                   Fecha nacimiento
                 </label>
                 <input
@@ -189,20 +195,60 @@ export default function Register() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-red-600 hover:bg-red-700 disabled:bg-red-800 disabled:cursor-not-allowed text-white py-3 rounded-lg font-medium transition-colors mt-2 cursor-pointer"
+              className="w-full bg-white hover:bg-gray-100 disabled:bg-gray-300 disabled:cursor-not-allowed text-gray-900 py-3 rounded-xl font-bold transition-colors cursor-pointer mt-2"
             >
               {loading ? 'Creando cuenta...' : 'Crear cuenta'}
             </button>
           </form>
 
           {/* Login link */}
-          <p className="text-center text-gray-400 mt-6 text-sm">
-            Ya tienes cuenta?{' '}
-            <Link to="/login" className="text-red-500 hover:text-red-400 font-medium">
-              Inicia sesion
+          <p className="text-center text-gray-500 mt-6 text-sm">
+            ¿Ya tienes cuenta?{' '}
+            <Link to="/login" className="text-white font-bold hover:text-gray-300 transition-colors">
+              Inicia sesión
             </Link>
           </p>
         </div>
+
+        {/* ── Panel derecho: branding ── */}
+        <div className="hidden md:flex flex-col justify-between w-1/2 bg-gray-900/70 backdrop-blur-sm p-10">
+          {/* Atrás + Logo */}
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={() => navigate(-1)}
+              className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium w-fit"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+              Atrás
+            </button>
+            <img
+              src="/FitMeal_logoblanco.png"
+              alt="FitMeal"
+              className="h-14 w-14 object-contain"
+            />
+          </div>
+
+          {/* Texto central */}
+          <div>
+            <h2 className="text-5xl font-black text-white uppercase leading-tight tracking-tight mb-4">
+              Únete a<br />FitMeal
+            </h2>
+            <p className="text-gray-300 text-sm leading-relaxed">
+              Crea tu cuenta y empieza hoy mismo tu camino hacia una vida más saludable.
+              Planifica comidas, sigue tu nutrición y alcanza tus metas.
+            </p>
+          </div>
+
+          {/* Footer legal */}
+          <div className="flex gap-4 text-gray-500 text-xs">
+            <span className="cursor-pointer hover:text-gray-300 transition-colors">Política de privacidad</span>
+            <span>•</span>
+            <span className="cursor-pointer hover:text-gray-300 transition-colors">Términos de uso</span>
+          </div>
+        </div>
+
       </div>
     </div>
   );

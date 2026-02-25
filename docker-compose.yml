@@ -57,6 +57,7 @@ services:
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
       GOOGLE_CALLBACK_URL: ${GOOGLE_CALLBACK_URL}
       NODE_ENV: development
+      FRONTEND_URL: http://localhost:5173
     depends_on:
       fitmeal-db:
         condition: service_healthy

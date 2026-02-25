@@ -2,74 +2,54 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export default function Home() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center bg-gray-950 px-4">
-      {/* Hero Section */}
-      <div className="text-center max-w-3xl">
-        <h1 className="text-5xl sm:text-6xl font-bold text-white mb-4">
-          Fit<span className="text-red-500">Meal</span>
-        </h1>
-        <p className="text-xl text-gray-400 mb-8">
-          Tu plataforma de fitness personalizada. Ejercicios, comidas y planes adaptados a ti.
-        </p>
+    <div className="relative h-screen w-full overflow-hidden">
 
-        {isAuthenticated ? (
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 max-w-md mx-auto">
-            <h2 className="text-2xl font-semibold text-white mb-2">
-              Bienvenido, <span className="text-red-500">{user?.nombre}</span>
-            </h2>
-            <p className="text-gray-400 mb-6">Tu sesion esta activa</p>
-            <div className="grid gap-3">
-              <div className="bg-gray-800 rounded-lg p-4 text-left">
-                <p className="text-gray-400 text-sm">Email</p>
-                <p className="text-white">{user?.email}</p>
-              </div>
-              <div className="bg-gray-800 rounded-lg p-4 text-left">
-                <p className="text-gray-400 text-sm">Rol</p>
-                <p className="text-white">{user?.rol === 1 ? 'Administrador' : 'Usuario'}</p>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+      {/* ── Imagen de fondo del gimnasio ─────────────────────────────
+          Cambia la ruta por la tuya, p.ej. src="/img/gym.jpg"       */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/fondogym.jpg')" }}
+      />
+
+      {/* Overlay oscuro */}
+      <div className="absolute inset-0 bg-black/55" />
+
+      {/* ── Contenido principal ──────────────────────────────────── */}
+      <div className="relative z-10 h-full flex items-center px-16">
+        <div className="max-w-lg">
+          <h1 className="text-8xl sm:text-9xl font-black italic text-white uppercase leading-none mb-10 drop-shadow-lg">
+            FITMEAL
+          </h1>
+
+          {isAuthenticated ? (
+            <Link
+              to="/dashboard"
+              className="inline-block bg-red-700 hover:bg-red-800 text-white px-10 py-4 rounded-full text-lg font-semibold italic transition-colors shadow-lg"
+            >
+              Ir al Dashboard
+            </Link>
+          ) : (
             <Link
               to="/register"
-              className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-xl text-lg font-medium transition-colors"
+              className="inline-block bg-red-700 hover:bg-red-800 text-white px-10 py-4 rounded-full text-lg font-semibold italic transition-colors shadow-lg"
             >
-              Empezar ahora
+              Empieza tu recorrido
             </Link>
-            <Link
-              to="/login"
-              className="border border-gray-600 hover:border-gray-400 text-gray-300 hover:text-white px-8 py-3 rounded-xl text-lg font-medium transition-colors"
-            >
-              Ya tengo cuenta
-            </Link>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
-      {/* Features */}
-      {!isAuthenticated && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mt-16">
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 text-center">
-            <div className="text-3xl mb-3">&#128170;</div>
-            <h3 className="text-white font-semibold mb-2">Ejercicios personalizados</h3>
-            <p className="text-gray-400 text-sm">Rutinas adaptadas a tu nivel y objetivos</p>
-          </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 text-center">
-            <div className="text-3xl mb-3">&#127858;</div>
-            <h3 className="text-white font-semibold mb-2">Planes de comida</h3>
-            <p className="text-gray-400 text-sm">Nutricion optimizada para tus metas</p>
-          </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 text-center">
-            <div className="text-3xl mb-3">&#127942;</div>
-            <h3 className="text-white font-semibold mb-2">Productos fitness</h3>
-            <p className="text-gray-400 text-sm">Suplementos y proteinas de calidad</p>
-          </div>
-        </div>
-      )}
+      {/* ── Imagen de la chica ────────────────────────────────────────
+          Cambia la ruta por la tuya, p.ej. src="/img/woman.png"
+          Usa una imagen recortada (sin fondo) para mejor resultado   */}
+      <img
+        src="/img/woman.png"
+        alt=""
+        className="absolute right-0 bottom-0 h-full object-contain object-bottom pointer-events-none select-none"
+      />
     </div>
   );
 }

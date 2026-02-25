@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('../config/passport');
 const { generateToken } = require('../middleware/auth');
 
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
 // ============================================
 // OAUTH GITHUB
