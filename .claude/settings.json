@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s \"https://app-companion-430619.appspot.com/api/project/12334597786222347075/screen/97b42d1fdbfe4049986d577f5eed1e98\")",
+      "Bash(curl -sI \"https://app-companion-430619.appspot.com/api/projects/12334597786222347075/screens/97b42d1fdbfe4049986d577f5eed1e98/image\")",
+      "Bash(curl -L \"https://lh3.googleusercontent.com/aida/AOfcidUGOzjEimZe_6RxeV6cmqPz9ugzxyKbnIlodvFLPWh5kS1rJEa4cc0wyrtYKZqrt59b06t0h5tXrXUkreOGxC5w_IBYYAd9L8OUCZERQx4_IzLak7gbsPwban_m4ZyavZhBsYN-6UCzgEfEjUiBolrH_RIDsy_dcHgfYk0m4kP5cctUW_jQlj8R2T7mRAHUHYB8Qa2AAIYi4ZDkac2rdBh7b7etSwU67p6CFvmbhlE61XOBCKeu11La1Y8X\" -o /tmp/stitch_home.png -w \"%{http_code} %{content_type}\")",
+      "Bash(curl -L \"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ8Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpbCiVodG1sX2FhODBiZmFjYjE3ZTRlM2NhMWVkNmE0YzE0MzQwOGRmEgsSBxCmz7HHjxEYAZIBJAoKcHJvamVjdF9pZBIWQhQxMjMzNDU5Nzc4NjIyMjM0NzA3NQ&filename=&opi=89354086\" -o /tmp/stitch_home.html -w \"%{http_code}\")",
+      "Read(//tmp/**)"
+    ]
+  }
+}
