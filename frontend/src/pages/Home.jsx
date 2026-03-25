@@ -183,7 +183,6 @@ export default function Home() {
               <h1 className="text-8xl md:text-[10rem] font-display italic leading-[0.85] tracking-tight text-white mb-8 drop-shadow-2xl perspective-[600px]">
                 <LetterReveal text="FITMEAL" delay={0.1} />
               </h1>
-
               <motion.div
                 className="flex flex-col sm:flex-row gap-6 items-start sm:items-center mb-12"
                 initial={{ opacity: 0, y: 30 }}
