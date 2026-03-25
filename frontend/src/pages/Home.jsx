@@ -169,7 +169,8 @@ export default function Home() {
           <img
             alt="Modern gym interior"
             className="w-full h-full object-cover"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhBkpDLj34N2Ky3IDNE1hYOrqVX2gBTE6JpTUF-mj_X7H0-gpChyyNyti3Mt6VfAE9mQA4G_w5QaCkon0ZWZD8DpB-56euIzggvPjyafFSrjTmZ_n2qXUK2fH4QU47_h6mHTGu74_YWK7S4qKrNQQNYZ7gI8OhafRfQ5REdg2recg4Io9i_o7JxINZTDhvTq47yJvnetW6KkHYqsXIps64vYSE2xqrxLm-xkxCRe4kf_lCddS9L003578ZeNb9NuYv0yjjNdckiztq"
+            src="fit-woman-performing-a-goblet-squat-at-the-gym-fo-2026-01-09-10-34-51-utc.webp"
+            // src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhBkpDLj34N2Ky3IDNE1hYOrqVX2gBTE6JpTUF-mj_X7H0-gpChyyNyti3Mt6VfAE9mQA4G_w5QaCkon0ZWZD8DpB-56euIzggvPjyafFSrjTmZ_n2qXUK2fH4QU47_h6mHTGu74_YWK7S4qKrNQQNYZ7gI8OhafRfQ5REdg2recg4Io9i_o7JxINZTDhvTq47yJvnetW6KkHYqsXIps64vYSE2xqrxLm-xkxCRe4kf_lCddS9L003578ZeNb9NuYv0yjjNdckiztq"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
@@ -216,11 +217,19 @@ export default function Home() {
               className="hidden lg:grid grid-cols-2 gap-4 h-[500px]"
               initial="hidden"
               animate="visible"
-              transition={{ staggerChildren: 0.12, delayChildren: 0.5 }}
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: { staggerChildren: 0.15, delayChildren: 0.5 },
+                },
+              }}
             >
               <motion.div
-                className="bg-card-dark/80 backdrop-blur-md p-8 rounded-[2rem] border border-white/10 hover:border-primary/50 transition-all cursor-pointer group row-span-2 flex flex-col justify-between relative overflow-hidden"
-                variants={{ hidden: { opacity: 0, x: 60 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } } }}
+                  className="bg-card-dark/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/5 hover:border-primary/40 transition-all cursor-pointer group row-span-2 flex flex-col justify-between relative overflow-hidden"
+                variants={{
+                  hidden: { opacity: 0, x: 60, y: 20, filter: 'blur(6px)' },
+                  visible: { opacity: 1, x: 0, y: 0, filter: 'blur(0px)', transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+                }}
               >
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                   <span className="material-symbols-outlined text-9xl">restaurant_menu</span>
@@ -238,8 +247,11 @@ export default function Home() {
               </motion.div>
 
               <motion.div
-                className="bg-card-lighter/80 backdrop-blur-md p-6 rounded-[2rem] border border-white/10 hover:border-primary/50 transition-all cursor-pointer group flex flex-col justify-center relative overflow-hidden"
-                variants={{ hidden: { opacity: 0, x: 60 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } } }}
+                className="bg-card-lighter/10 backdrop-blur-md p-6 rounded-[2rem] border border-white/5 hover:border-primary/40 transition-all cursor-pointer group flex flex-col justify-center relative overflow-hidden"
+                variants={{
+                  hidden: { opacity: 0, x: 60, y: 20, filter: 'blur(6px)' },
+                  visible: { opacity: 1, x: 0, y: 0, filter: 'blur(0px)', transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+                }}
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="material-symbols-outlined text-white text-4xl">fitness_center</span>
@@ -250,8 +262,11 @@ export default function Home() {
               </motion.div>
 
               <motion.div
-                className="bg-card-dark/90 backdrop-blur-md p-6 rounded-[2rem] border border-white/10 hover:border-primary/50 transition-all cursor-pointer group flex items-center gap-4 relative overflow-hidden"
-                variants={{ hidden: { opacity: 0, x: 60 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } } }}
+                className="bg-card-dark/10 backdrop-blur-md p-6 rounded-[2rem] border border-white/5 hover:border-primary/40 transition-all cursor-pointer group flex items-center gap-4 relative overflow-hidden"
+                variants={{
+                  hidden: { opacity: 0, x: 60, y: 20, filter: 'blur(6px)' },
+                  visible: { opacity: 1, x: 0, y: 0, filter: 'blur(0px)', transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+                }}
               >
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-black flex items-center justify-center shrink-0">
                   <span className="material-symbols-outlined text-white text-3xl">monitoring</span>
@@ -346,8 +361,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 bg-[#0f172a] border-t border-white/5 overflow-hidden" id="products">
-        <FadeUp className="max-w-7xl mx-auto px-6 md:px-12 mb-10 flex justify-between items-end">
+      <section className="py-20 bg-black relative overflow-hidden" id="products">
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1/3 h-2/3 bg-primary/5 blur-3xl rounded-full pointer-events-none" />
+        <div className="absolute right-1/4 bottom-0 w-64 h-64 bg-primary/10 blur-[100px] rounded-full pointer-events-none" />
+        <FadeUp className="max-w-7xl mx-auto px-6 md:px-12 mb-10 flex justify-between items-end relative z-10">
           <div>
             <h2 className="text-4xl md:text-5xl font-display italic text-white">
               <TextReveal text="Nuestros Productos" />
@@ -365,7 +382,7 @@ export default function Home() {
         </FadeUp>
 
         <motion.div
-          className="flex overflow-x-auto gap-6 pb-8 px-6 md:px-12 scrollbar-hide snap-x"
+          className="flex overflow-x-auto gap-6 pb-8 px-6 md:px-12 scrollbar-hide snap-x relative z-10"
           initial={{ opacity: 0, x: 80 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: '-100px' }}

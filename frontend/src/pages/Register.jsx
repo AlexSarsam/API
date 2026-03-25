@@ -54,7 +54,7 @@ export default function Register() {
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat p-4"
-      style={{ backgroundImage: "url('/fondologin.png')" }}
+      style={{ backgroundImage: "url('/fondologin2.jpg')" }}
     >
       {/* Card contenedor de 2 columnas — invertido respecto al Login */}
       <div className="w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl flex min-h-[600px]">
