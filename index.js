@@ -77,10 +77,12 @@ app.use('/auth', oauthRouter);
 const usersRouter = require('./routes/users');
 const productsRouter = require('./routes/products'); 
 const plansRouter = require('./routes/plans');
+const exercisesRouter = require('./routes/exercises');
 
 app.use('/api/users', usersRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/plans', plansRouter);
+app.use('/api/exercises', exercisesRouter);
 
 // ============================================
 // RUTA DE BIENVENIDA
@@ -151,3 +153,4 @@ app.listen(port, '0.0.0.0', () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${port}`);
   console.log(`📖 Documentación en http://localhost:${port}/api-docs`);
 });
+
