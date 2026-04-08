@@ -9,7 +9,7 @@ services:
   fitmeal-db:
     image: mysql:8.0
     container_name: FitMeal
-    restart: always
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: FitMealRoot123
       MYSQL_DATABASE: fitness_platform
@@ -38,7 +38,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: fitmeal-api
-    restart: always
+    restart: unless-stopped
     ports:
       - "0.0.0.0:3000:3000"  # Accesible desde cualquier IP de tu red local
     environment:
@@ -73,7 +73,7 @@ services:
   fitmeal-phpmyadmin:
     image: phpmyadmin:latest
     container_name: fitmeal-phpmyadmin
-    restart: always
+    restart: unless-stopped
     environment:
       PMA_HOST: fitmeal-db
       PMA_PORT: 3306

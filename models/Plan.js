@@ -4,8 +4,8 @@ class Plan {
   /**
    * Obtener todos los planes
    */
-  static async findAll() {
-    const [rows] = await db.query('SELECT * FROM planes_suscripcion');
+  static async findAll(offset = 0, limit = 20) {
+    const [rows] = await db.query('SELECT * FROM planes_suscripcion LIMIT ? OFFSET ?', [limit, offset]);
     return rows;
   }
 

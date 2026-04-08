@@ -7,11 +7,15 @@ class ProductController {
    */
   static async getAllProducts(req, res) {
     try {
-      const products = await Product.findAll();
-      res.json({ products });
+      const page = Math.max(1, parseInt(req.query.page) || 1);
+      const limit = Math.min(100, parseInt(req.query.limit) || 20);
+      const offset = (page - 1) * limit;
+
+      const products = await Product.findAll(offset, limit);
+      res.json({ products, page, limit });
     } catch (error) {
       console.error('Error al obtener productos:', error);
-      res.status(500).json({ 
+      res.status(500).json({
         error: 'Error al obtener productos',
         ...(process.env.NODE_ENV !== 'production' && { details: error.message })
       });

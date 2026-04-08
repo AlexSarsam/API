@@ -4,12 +4,13 @@ class Product {
   /**
    * Obtener todos los productos
    */
-  static async findAll() {
+  static async findAll(offset = 0, limit = 20) {
     const [rows] = await db.query(`
       SELECT p.*, c.nombre AS categoria_nombre
       FROM productos p
       LEFT JOIN categorias_productos c ON p.id_categoria = c.id_categoria
-    `);
+      LIMIT ? OFFSET ?
+    `, [limit, offset]);
     return rows;
   }
 

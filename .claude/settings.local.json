@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sL \"https://stitch.withgoogle.com/project/12334597786222347075\" -o /tmp/stitch_project.html -w \"%{http_code} %{url_effective}\")",
+      "Bash(curl -s \"https://app-companion-430619.appspot.com/v1/projects/12334597786222347075\" -H \"Accept: application/json\" -w \"\\\\n%{http_code}\")"
+    ]
+  }
+}

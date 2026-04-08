@@ -2,8 +2,11 @@ const jwt = require('jsonwebtoken');
 
 // Middleware para verificar JWT
 const verifyToken = (req, res, next) => {
-  const token = req.headers['authorization']?.split(' ')[1]; // Bearer TOKEN
-  
+  // Read from httpOnly cookie first, fallback to Authorization header
+  const cookieToken = req.cookies?.fitmeal_token;
+  const headerToken = req.headers['authorization']?.split(' ')[1];
+  const token = cookieToken || headerToken;
+
   if (!token) {
     return res.status(403).json({ error: 'Token no proporcionado' });
   }
@@ -46,4 +49,11 @@ const requireRole = (...roles) => {
   };
 };
 
-module.exports = { verifyToken, generateToken, requireRole };
+const COOKIE_CONFIG = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'strict',
+  maxAge: 24 * 60 * 60 * 1000
+};
+
+module.exports = { verifyToken, generateToken, requireRole, COOKIE_CONFIG };

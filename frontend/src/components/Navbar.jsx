@@ -1,6 +1,10 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
+const navLinks = [
+  { to: '/workouts', label: 'Workouts' },
+];
+
 export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
   const location = useLocation();
@@ -29,21 +33,31 @@ export default function Navbar() {
 
         {/* Navigation Links */}
         <div className="hidden md:flex items-center gap-8">
-          <Link to="/products" className="text-white/80 hover:text-white text-sm font-medium italic transition-colors">
-            Products
-          </Link>
-          <Link to="/dashboard" className="text-white/80 hover:text-white text-sm font-medium italic transition-colors">
-            Dashboard
-          </Link>
-          <Link to="/plans" className="text-white/80 hover:text-white text-sm font-medium italic transition-colors">
-            Plans
-          </Link>
-          <Link to="/recipes" className="text-white/80 hover:text-white text-sm font-medium italic transition-colors">
-            Recipes
-          </Link>
-          <Link to="/workouts" className="text-white/80 hover:text-white text-sm font-medium italic transition-colors">
-            Workouts
-          </Link>
+          {navLinks.map(({ to, label }) => {
+            const isActive = location.pathname === to;
+            return (
+              <Link
+                key={to}
+                to={to}
+                className="relative text-sm font-medium italic transition-colors group flex flex-col items-center gap-1"
+                style={{ color: isActive ? '#fff' : 'rgba(255,255,255,0.7)' }}
+              >
+                {label}
+                <span
+                  className="block h-[2px] rounded-full transition-all duration-300"
+                  style={{
+                    width: isActive ? '100%' : '0%',
+                    backgroundColor: '#d30f15',
+                    boxShadow: isActive ? '0 0 8px rgba(211,15,21,0.7)' : 'none',
+                  }}
+                />
+                {/* hover bar for non-active */}
+                {!isActive && (
+                  <span className="block h-[2px] w-0 group-hover:w-full rounded-full bg-white/40 transition-all duration-300 absolute bottom-0" />
+                )}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Right side */}

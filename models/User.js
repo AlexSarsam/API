@@ -4,8 +4,8 @@ class User {
   /**
    * Obtener todos los usuarios
    */
-  static async findAll() {
-    const [rows] = await db.query('SELECT * FROM usuarios');
+  static async findAll(offset = 0, limit = 20) {
+    const [rows] = await db.query('SELECT * FROM usuarios LIMIT ? OFFSET ?', [limit, offset]);
     return rows;
   }
 
