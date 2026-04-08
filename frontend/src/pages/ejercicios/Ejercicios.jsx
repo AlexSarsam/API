@@ -1,23 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { EXERCISES_DB } from '../../data/exercises';
 
 export default function Ejercicios() {
   const { id } = useParams();
   const navigate = useNavigate();
+  
+  const [exercise, setExercise] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const exercise = Object.values(EXERCISES_DB)
-    .flatMap(muscle => muscle.list)
-    .find(ex => ex.id === parseInt(id));
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    fetch(`http://localhost:3000/api/exercises/detail/${id}`)
+      .then(res => {
+        if (!res.ok) throw new Error('Ejercicio no encontrado');
+        return res.json();
+      })
+      .then(data => {
+        setExercise(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, [id]);
 
-  if (!exercise) {
+  if (loading) {
+    return (
+      <div className="h-screen bg-[#0a0a0a] flex flex-col items-center justify-center text-white">
+        <p className="text-primary font-black animate-pulse uppercase tracking-widest text-2xl">CARGANDO...</p>
+      </div>
+    );
+  }
+
+  if (error || !exercise) {
     return (
       <div className="h-screen bg-[#0a0a0a] flex flex-col items-center justify-center text-white">
         <h1 className="text-4xl font-black italic mb-4 uppercase">Ejercicio no encontrado</h1>
-        <button onClick={() => navigate('/workouts')} className="text-primary hover:underline">Volver a la lista</button>
+        <button onClick={() => navigate(-1)} className="text-primary hover:underline font-black uppercase">Volver atrás</button>
       </div>
     );
   }
@@ -42,8 +63,8 @@ export default function Ejercicios() {
           <div className="sticky top-40 space-y-6">
             <div className="rounded-[40px] overflow-hidden border border-white/10 bg-[#121212] aspect-video relative group">
               <img 
-                src={exercise.image} 
-                alt={exercise.title} 
+                src={exercise.imagen || 'https://via.placeholder.com/800x600/121212/ffffff?text=Sin+Imagen'} 
+                alt={exercise.titulo} 
                 className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
@@ -52,7 +73,7 @@ export default function Ejercicios() {
             <div className="flex gap-3">
               <div className="flex-1 bg-white/5 border border-white/5 p-6 rounded-3xl">
                 <p className="text-white/30 text-[9px] font-black uppercase tracking-widest mb-1">Dificultad</p>
-                <p className="text-xl font-black italic uppercase text-primary">{exercise.difficulty}</p>
+                <p className="text-xl font-black italic uppercase text-primary">{exercise.dificultad}</p>
               </div>
               <div className="flex-1 bg-white/5 border border-white/5 p-6 rounded-3xl">
                 <p className="text-white/30 text-[9px] font-black uppercase tracking-widest mb-1">Tipo</p>
@@ -65,7 +86,7 @@ export default function Ejercicios() {
           <div className="space-y-12">
             <section>
               <h1 className="text-8xl font-black italic uppercase leading-[0.8] tracking-tighter mb-6">
-                {exercise.title}
+                {exercise.titulo}
               </h1>
               <div className="h-1.5 w-40 bg-primary shadow-[0_0_30px_rgba(211,15,21,0.4)]"></div>
             </section>
@@ -74,7 +95,7 @@ export default function Ejercicios() {
               <div>
                 <h3 className="text-primary font-black uppercase text-xs tracking-[0.3em] mb-4">Descripción Técnica</h3>
                 <p className="text-white/50 text-xl leading-relaxed font-medium italic">
-                  {exercise.description || "Realiza el movimiento de forma controlada, manteniendo la tensión muscular durante todo el rango de movimiento. Enfócate en la conexión mente-músculo."}
+                  {exercise.descripcion || "Realiza el movimiento de forma controlada, manteniendo la tensión muscular durante todo el rango de movimiento. Enfócate en la conexión mente-músculo."}
                 </p>
               </div>
 
