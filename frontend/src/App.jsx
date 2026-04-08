@@ -11,6 +11,11 @@ import OAuthSuccess from './pages/OAuthSuccess';
 import ProductDetail from './pages/ProductDetail';
 import Ejercicios from './pages/ejercicios/Ejercicios';
 
+
+
+
+
+
 function App() {
   return (
     <BrowserRouter>
