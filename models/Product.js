@@ -4,8 +4,8 @@ class Product {
   /**
    * Obtener todos los productos
    */
-  static async findAll() {
-    const [rows] = await db.query('SELECT * FROM productos');
+  static async findAll(offset = 0, limit = 20) {
+    const [rows] = await db.query('SELECT * FROM productos LIMIT ? OFFSET ?', [limit, offset]);
     return rows;
   }
 

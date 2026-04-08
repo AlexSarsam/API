@@ -2,10 +2,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const navLinks = [
-  { to: '/products', label: 'Products' },
-  { to: '/dashboard', label: 'Dashboard' },
-  { to: '/plans', label: 'Plans' },
-  { to: '/recipes', label: 'Recipes' },
   { to: '/workouts', label: 'Workouts' },
 ];
 

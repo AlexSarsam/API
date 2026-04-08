@@ -1,10 +1,19 @@
 // Cargar variables de entorno
 require('dotenv').config();
 
+const REQUIRED_ENV = ['JWT_SECRET', 'SESSION_SECRET', 'DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_NAME'];
+const missingEnv = REQUIRED_ENV.filter(k => !process.env[k]);
+if (missingEnv.length > 0) {
+  console.error('❌ Variables de entorno faltantes:', missingEnv.join(', '));
+  process.exit(1);
+}
+
 const express = require('express');
 const session = require('express-session');
 const passport = require('./config/passport');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const app = express();
@@ -17,16 +26,29 @@ const swaggerDocument = YAML.load('./monlau-FitMealAPI-1.0.0-resolved.yaml');
 // MIDDLEWARES
 // ============================================
 
-app.use(cors()); // Permitir CORS
-app.use(express.json()); // Parser JSON
-app.use(express.urlencoded({ extended: true })); // Parser URL-encoded
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173').split(',');
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use(helmet());
+app.use(cookieParser());
+app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ limit: '10kb', extended: true }));
 
 // Configuración de sesiones (necesario para Passport)
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false } // Cambiar a true en producción con HTTPS
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    httpOnly: true,
+    sameSite: 'strict',
+    maxAge: 24 * 60 * 60 * 1000
+  }
 }));
 
 // Inicializar Passport

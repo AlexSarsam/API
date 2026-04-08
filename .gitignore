@@ -1,8 +1,15 @@
 # Dependencias
 node_modules/
 
-# Variables de entorno
+# Environment files (all variants)
 .env
+.env.local
+.env.*.local
+frontend/.env
+frontend/.env.local
+
+# SQL backups (may contain sensitive data)
+compartido/*.sql
 
 # Logs
 logs/

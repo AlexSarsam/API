@@ -7,11 +7,15 @@ class PlanController {
    */
   static async getAllPlans(req, res) {
     try {
-      const plans = await Plan.findAll();
-      res.json({ plans });
+      const page = Math.max(1, parseInt(req.query.page) || 1);
+      const limit = Math.min(100, parseInt(req.query.limit) || 20);
+      const offset = (page - 1) * limit;
+
+      const plans = await Plan.findAll(offset, limit);
+      res.json({ plans, page, limit });
     } catch (error) {
       console.error('Error al obtener planes:', error);
-      res.status(500).json({ 
+      res.status(500).json({
         error: 'Error al obtener planes',
         ...(process.env.NODE_ENV !== 'production' && { details: error.message })
       });

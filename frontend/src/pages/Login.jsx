@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
@@ -10,6 +10,13 @@ export default function Login() {
 
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.get('error') === 'oauth_failed') {
+      setError('Error al iniciar sesión con proveedor externo. Inténtalo de nuevo.');
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -142,7 +149,7 @@ export default function Login() {
           {/* OAuth Buttons */}
           <div className="space-y-3">
             <a
-              href="http://localhost:3000/auth/google"
+              href={`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/auth/google`}
               className="flex items-center justify-center gap-3 w-full bg-gray-800/80 hover:bg-gray-700/80 border border-gray-700 text-white py-3 rounded-xl font-medium transition-colors"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -154,7 +161,7 @@ export default function Login() {
               Continuar con Google
             </a>
             <a
-              href="http://localhost:3000/auth/github"
+              href={`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/auth/github`}
               className="flex items-center justify-center gap-3 w-full bg-gray-800/80 hover:bg-gray-700/80 border border-gray-700 text-white py-3 rounded-xl font-medium transition-colors"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
-const { generateToken } = require('../middleware/auth');
+const { generateToken, COOKIE_CONFIG } = require('../middleware/auth');
 
 class AuthController {
   /**
@@ -51,6 +51,9 @@ class AuthController {
         email: newUser.email,
         id_rol: newUser.id_rol
       });
+
+      // Set httpOnly cookie
+      res.cookie('fitmeal_token', token, COOKIE_CONFIG);
 
       res.status(201).json({
         message: 'Usuario registrado con éxito',
@@ -109,6 +112,9 @@ class AuthController {
 
       // Eliminar el hash del password de la respuesta
       delete user.password_hash;
+
+      // Set httpOnly cookie
+      res.cookie('fitmeal_token', token, COOKIE_CONFIG);
 
       res.json({
         message: 'Login exitoso',
