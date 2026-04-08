@@ -13,7 +13,7 @@ function FadeUp({ children, delay = 0, className = "" }) {
     </motion.div>
   );
 }
-
+//a
 export default function Footer() {
   return (
     <footer className="bg-[#0a0a0a] pt-20 pb-10 border-t border-white/5">
