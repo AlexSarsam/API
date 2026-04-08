@@ -5,7 +5,11 @@ class Product {
    * Obtener todos los productos
    */
   static async findAll() {
-    const [rows] = await db.query('SELECT * FROM productos');
+    const [rows] = await db.query(`
+      SELECT p.*, c.nombre AS categoria_nombre
+      FROM productos p
+      LEFT JOIN categorias_productos c ON p.id_categoria = c.id_categoria
+    `);
     return rows;
   }
 

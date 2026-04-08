@@ -43,8 +43,8 @@ services:
       - "0.0.0.0:3000:3000"  # Accesible desde cualquier IP de tu red local
     environment:
       DB_HOST: fitmeal-db
-      DB_USER: root
-      DB_PASSWORD: FitMealRoot123
+      DB_USER: fitmeal_user
+      DB_PASSWORD: FitMeal123
       DB_NAME: fitness_platform
       DB_PORT: 3306
       PORT: 3000
@@ -80,7 +80,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: FitMealRoot123
     ports:
-      - "8080:80"
+      - "8081:80"
     depends_on:
       - fitmeal-db
     networks:

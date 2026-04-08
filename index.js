@@ -53,7 +53,7 @@ app.use('/auth', oauthRouter);
 
 // Rutas CRUD protegidas
 const usersRouter = require('./routes/users');
-const productsRouter = require('./routes/products');
+const productsRouter = require('./routes/products'); 
 const plansRouter = require('./routes/plans');
 
 app.use('/api/users', usersRouter);
