@@ -26,13 +26,19 @@ export default function Register() {
     e.preventDefault();
     setError('');
 
-    if (formData.password !== formData.confirmPassword) {
-      setError('Las contraseñas no coinciden');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setError('Por favor introduce un email válido');
       return;
     }
 
-    if (formData.password.length < 6) {
-      setError('La contraseña debe tener al menos 6 caracteres');
+    if (formData.password.length < 8) {
+      setError('La contraseña debe tener al menos 8 caracteres');
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      setError('Las contraseñas no coinciden');
       return;
     }
 
@@ -141,7 +147,7 @@ export default function Register() {
                   onChange={handleChange}
                   required
                   className={inputClass}
-                  placeholder="Mín. 6 caracteres"
+                  placeholder="Mín. 8 caracteres"
                 />
               </div>
               <div>
