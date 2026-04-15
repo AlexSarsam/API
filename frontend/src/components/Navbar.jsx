@@ -3,6 +3,8 @@ import { useAuth } from '../context/AuthContext';
 
 const navLinks = [
   { to: '/workouts', label: 'Workouts' },
+  {to: '/recetas', label: 'Recetas'},
+  {to: '/products', label: 'Products'},
 ];
 
 export default function Navbar() {
@@ -21,7 +23,7 @@ export default function Navbar() {
           : 'relative bg-gray-900 border-b border-gray-800'
       } px-8 py-5`}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between relative w-full">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <img
@@ -32,7 +34,7 @@ export default function Navbar() {
         </Link>
 
         {/* Navigation Links */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
           {navLinks.map(({ to, label }) => {
             const isActive = location.pathname === to;
             return (

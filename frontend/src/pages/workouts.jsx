@@ -79,11 +79,12 @@ function Model({ url, onSelect, genero }) {
 export default function Workouts() {
   const [seleccionado, setSeleccionado] = useState(null);
   const [genero, setGenero] = useState("masculino");
-  
+
   const [ejercicios, setEjercicios] = useState([]);
   const [cargando, setCargando] = useState(false);
 
-  const rutaModelo = genero === "masculino" ? "/glbs/hombre3D.glb" : "/glbs/mujer3D.glb";
+  const rutaModelo =
+    genero === "masculino" ? "/glbs/hombre3D.glb" : "/glbs/mujer3D.glb";
 
   useEffect(() => {
     if (seleccionado) {
@@ -136,22 +137,42 @@ export default function Workouts() {
       </div>
 
       <main className="flex flex-1 overflow-hidden relative w-full h-full">
-        <div className={`relative transition-all duration-700 h-full ${seleccionado ? "w-1/2" : "w-full"}`}>
+        <div
+          className={`relative transition-all duration-700 h-full ${seleccionado ? "w-1/2" : "w-full"}`}
+        >
           <Canvas dpr={[1, 2]} camera={{ fov: 15 }}>
             <Suspense fallback={null}>
               <Stage environment="city" intensity={0.1} adjustCamera={true}>
-                <Model key={rutaModelo} url={rutaModelo} onSelect={setSeleccionado} genero={genero} />
+                <Model
+                  key={rutaModelo}
+                  url={rutaModelo}
+                  onSelect={setSeleccionado}
+                  genero={genero}
+                />
               </Stage>
             </Suspense>
-            <OrbitControls enableZoom={false} enablePan={false} makeDefault />
+            <OrbitControls
+              enableZoom={false}
+              enablePan={false}
+              makeDefault
+              minPolarAngle={Math.PI / 2}
+              maxPolarAngle={Math.PI / 2}
+              enableDamping={true} // Activa la inercia
+              dampingFactor={0.05} // Ajusta la suavidad (menor es más suave)
+            />
           </Canvas>
         </div>
 
         {/* PANEL DERECHO CON DATOS DE LA DB */}
-        <div className={`bg-[#0d0d0d] border-l border-white/5 transition-all duration-700 overflow-y-auto shadow-2xl ${seleccionado ? "w-1/2" : "w-0"}`}>
+        <div
+          className={`bg-[#0d0d0d] border-l border-white/5 transition-all duration-700 overflow-y-auto shadow-2xl ${seleccionado ? "w-1/2" : "w-0"}`}
+        >
           {seleccionado && (
             <div className="p-12 min-w-[450px]">
-              <button onClick={() => setSeleccionado(null)} className="text-white/30 hover:text-primary text-[10px] font-black mb-10 uppercase tracking-[0.2em]">
+              <button
+                onClick={() => setSeleccionado(null)}
+                className="text-white/30 hover:text-primary text-[10px] font-black mb-10 uppercase tracking-[0.2em]"
+              >
                 ← Back to Model
               </button>
 
@@ -163,7 +184,9 @@ export default function Workouts() {
               </div>
 
               {cargando ? (
-                <p className="animate-pulse text-primary font-black">CARGANDO...</p>
+                <p className="animate-pulse text-primary font-black">
+                  CARGANDO...
+                </p>
               ) : (
                 <div className="grid gap-8 pb-10">
                   {ejercicios.length > 0 ? (
@@ -176,7 +199,10 @@ export default function Workouts() {
                         <div className="h-44 bg-zinc-900 relative">
                           {/* CAMBIO: Usamos ex.imagen (nombre de tu columna en DB) */}
                           <img
-                            src={ex.imagen || `https://via.placeholder.com/500x300?text=${ex.titulo}`}
+                            src={
+                              ex.imagen ||
+                              `https://via.placeholder.com/500x300?text=${ex.titulo}`
+                            }
                             className="w-full h-full object-cover opacity-40 group-hover:opacity-100 transition-all"
                             alt={ex.titulo}
                           />
@@ -196,7 +222,9 @@ export default function Workouts() {
                       </Link>
                     ))
                   ) : (
-                    <p className="text-white/20 italic">No hay ejercicios para este músculo todavía.</p>
+                    <p className="text-white/20 italic">
+                      No hay ejercicios para este músculo todavía.
+                    </p>
                   )}
                 </div>
               )}

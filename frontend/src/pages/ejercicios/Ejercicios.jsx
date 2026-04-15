@@ -11,6 +11,8 @@ export default function Ejercicios() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    
+    // 1. Cargar datos del ejercicio
     fetch(`http://localhost:3000/api/exercises/detail/${id}`)
       .then(res => {
         if (!res.ok) throw new Error('Ejercicio no encontrado');
@@ -24,6 +26,7 @@ export default function Ejercicios() {
         setError(err.message);
         setLoading(false);
       });
+
   }, [id]);
 
   if (loading) {
@@ -77,7 +80,7 @@ export default function Ejercicios() {
               </div>
               <div className="flex-1 bg-white/5 border border-white/5 p-6 rounded-3xl">
                 <p className="text-white/30 text-[9px] font-black uppercase tracking-widest mb-1">Tipo</p>
-                <p className="text-xl font-black italic uppercase tracking-tighter">Fuerza / Hipertrofia</p>
+                <p className="text-xl font-black italic uppercase tracking-tighter">{exercise.tipo || "Fuerza / Hipertrofia"}</p>
               </div>
             </div>
           </div>
@@ -101,17 +104,19 @@ export default function Ejercicios() {
 
               <div className="grid gap-4">
                 <h3 className="text-primary font-black uppercase text-xs tracking-[0.3em] mb-2">Puntos Clave</h3>
-                {[
+                {(exercise.puntos_clave ? exercise.puntos_clave.split('|') : [
                   "Controlar la fase excéntrica (bajada).",
                   "Mantener el core estable en todo momento.",
                   "Evitar el uso de inercias o balanceos."
-                ].map((tip, i) => (
+                ]).map((tip, i) => (
                   <div key={i} className="flex items-center gap-4 bg-white/5 p-5 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
                     <span className="text-primary font-black italic">0{i+1}</span>
                     <p className="text-sm font-bold uppercase tracking-wide">{tip}</p>
                   </div>
                 ))}
               </div>
+
+
             </section>
           </div>
         </div>

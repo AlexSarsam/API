@@ -78,11 +78,13 @@ const usersRouter = require('./routes/users');
 const productsRouter = require('./routes/products'); 
 const plansRouter = require('./routes/plans');
 const exercisesRouter = require('./routes/exercises');
+const recipesRouter = require('./routes/recipes');
 
 app.use('/api/users', usersRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/plans', plansRouter);
 app.use('/api/exercises', exercisesRouter);
+app.use('/api/recipes', recipesRouter);
 
 // ============================================
 // RUTA DE BIENVENIDA
