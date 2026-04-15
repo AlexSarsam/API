@@ -26,7 +26,7 @@ const swaggerDocument = YAML.load('./monlau-FitMealAPI-1.0.0-resolved.yaml');
 // MIDDLEWARES
 // ============================================
 
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173').split(',');
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173,http://localhost:5174,http://localhost:5175,http://localhost:5176,http://localhost:5177').split(',');
 app.use(cors({
   origin: allowedOrigins,
   credentials: true,
@@ -78,11 +78,13 @@ const usersRouter = require('./routes/users');
 const productsRouter = require('./routes/products'); 
 const plansRouter = require('./routes/plans');
 const exercisesRouter = require('./routes/exercises');
+const recipesRouter = require('./routes/recipes');
 
 app.use('/api/users', usersRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/plans', plansRouter);
 app.use('/api/exercises', exercisesRouter);
+app.use('/api/recipes', recipesRouter);
 
 // ============================================
 // RUTA DE BIENVENIDA

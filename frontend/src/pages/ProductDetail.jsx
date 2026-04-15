@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; //
 import api from '../api/axios';
 
 
@@ -55,20 +55,16 @@ export default function ProductDetail() {
   const [producto, setProducto]   = useState(null);
   const [cargando, setCargando]   = useState(true);
   const [estrellas, setEstrellas] = useState(4);
-  const [sabor, setSabor]         = useState('');
   const [talla, setTalla]         = useState('');
 
   // Cuando carga la página, pedimos el producto a la API por su ID
   useEffect(() => {
     api.get(`/api/products/${id}`)
       .then((res) => {
-        const producto = res.data.product;
-        setProducto(producto);
-
-        // Ponemos los valores por defecto según la categoría
-        const opciones = OPCIONES_CATEGORIA[producto.id_categoria] || OPCIONES_CATEGORIA[5];
-        setSabor(opciones.sabores[0] || '');
-        setTalla(opciones.tallas[1]  || opciones.tallas[0]);
+        const p = res.data.product;
+        setProducto(p);
+        const opciones = OPCIONES_CATEGORIA[p.id_categoria] || OPCIONES_CATEGORIA[5];
+        setTalla(opciones.tallas[1] || opciones.tallas[0]);
       })
       .finally(() => setCargando(false));
   }, [id]);
@@ -86,7 +82,7 @@ export default function ProductDetail() {
   );
 
   const opciones = OPCIONES_CATEGORIA[producto.id_categoria] || OPCIONES_CATEGORIA[5];
-  const imagen   = producto.imagen_url || IMAGENES[producto.nombre_producto];
+  const imagen = producto.imagen_url || IMAGENES[producto.nombre_producto];
   const precio   = parseFloat(producto.precio).toFixed(2);
 
   return (
@@ -144,24 +140,8 @@ export default function ProductDetail() {
             <span className="text-white/30 text-xs ml-2 uppercase tracking-widest">{estrellas}/5</span>
           </div>
 
-          {/* Selector de sabor (solo proteinas y barritas) */}
-          {opciones.tieneSabor && (
-            <div>
-              <p className="text-xs uppercase tracking-widest text-white/40 mb-3">Sabor</p>
-              <select
-                value={sabor}
-                onChange={(e) => setSabor(e.target.value)}
-                className="w-full bg-zinc-950 text-white px-4 py-3 rounded-xl text-sm cursor-pointer outline-none"
-                style={{ border: '1px solid #333' }}
-              >
-                {opciones.sabores.map((s) => (
-                  <option key={s} value={s}>{s}</option>
-                ))}
-              </select>
-            </div>
-          )}
 
-          {/* Selector de talla / cantidad */}
+          {/* Selector de cantidad */}
           <div>
             <p className="text-xs uppercase tracking-widest text-white/40 mb-3">{opciones.labelTallas}</p>
             <div className="flex gap-3">

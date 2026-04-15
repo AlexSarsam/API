@@ -10,6 +10,8 @@ import Products from './pages/products';
 import OAuthSuccess from './pages/OAuthSuccess';
 import ProductDetail from './pages/ProductDetail';
 import Ejercicios from './pages/ejercicios/Ejercicios';
+import Recetas from './pages/Recetas';
+import RecetaDetalle from './pages/RecetaDetalle';
 
 
 
@@ -39,6 +41,8 @@ function App() {
             </ProtectedRoute>
           } />
           <Route path="/ejercicios/:id" element={<Ejercicios />} />
+          <Route path="/recetas" element={<Recetas />} />
+          <Route path="/recetas/:id" element={<RecetaDetalle />} />
           <Route path="*" element={
             <div className="min-h-screen flex items-center justify-center bg-gray-950">
               <div className="text-center text-white">
