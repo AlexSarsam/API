@@ -43,7 +43,7 @@ class User {
       userData.email,
       userData.password_hash,
       userData.nombre,
-      userData.apellidos || null,
+      userData.apellidos ?? '',
       userData.telefono || null,
       userData.fecha_nacimiento || null,
       userData.id_rol || 2, // Por defecto rol 2 (usuario normal)
