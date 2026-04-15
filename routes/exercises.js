@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/database');
 
+
 router.get('/detail/:id', async (req, res, next) => {
   try {
     const { id } = req.params;

@@ -31,17 +31,17 @@ export default function RecetaDetalle() {
     <div className="min-h-screen bg-[#0a0a0a] text-white font-sans pt-32 pb-20 px-6 selection:bg-primary selection:text-black">
       <div className="max-w-6xl mx-auto">
         <button onClick={() => navigate(-1)} className="group flex items-center gap-2 text-white/40 hover:text-primary font-black uppercase text-[10px] tracking-widest mb-10 transition-colors">
-          <span className="group-hover:-translate-x-1 transition-transform">â†</span> Volver a Recetas
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> Volver a Recetas
         </button>
-
+        
         <div className="grid lg:grid-cols-2 gap-16 items-start">
-
+          
           {/* COLUMNA IZQUIERDA: IMAGEN */}
           <div className="sticky top-32 rounded-[40px] overflow-hidden border border-white/10 bg-[#121212] aspect-square relative group">
-            <img
-               src={receta.imagen_url || 'https://via.placeholder.com/800'}
-               alt={receta.titulo}
-               className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-700 hover:scale-105"
+            <img 
+               src={receta.imagen_url || 'https://via.placeholder.com/800'} 
+               alt={receta.titulo} 
+               className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-700 hover:scale-105" 
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80"></div>
             <span className="absolute top-6 right-6 bg-black/80 backdrop-blur-md px-5 py-2.5 rounded-full text-primary font-black uppercase tracking-widest text-[10px] shadow-lg border border-white/10">
@@ -57,16 +57,16 @@ export default function RecetaDetalle() {
               <p className="text-white/40 font-black tracking-widest uppercase text-sm">{receta.tipo}</p>
             </div>
 
-            {/* SECCIÃ“N MACROS PENSADA AL DETALLE */}
+            {/* SECCIÓN MACROS PENSADA AL DETALLE */}
             <div>
               <h3 className="text-white/30 font-black uppercase text-[10px] tracking-[0.3em] mb-4">Panel Nutricional</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-white/5 border border-white/10 p-5 rounded-[20px] text-center hover:border-yellow-500/50 transition-colors">
-                  <p className="text-white/30 text-[9px] uppercase font-black tracking-widest mb-1.5">CalorÃ­as</p>
+                  <p className="text-white/30 text-[9px] uppercase font-black tracking-widest mb-1.5">Calorías</p>
                   <p className="text-yellow-500 font-black text-3xl italic">{receta.calorias}</p>
                 </div>
                 <div className="bg-white/5 border border-white/10 p-5 rounded-[20px] text-center hover:border-primary/50 transition-colors">
-                  <p className="text-white/30 text-[9px] uppercase font-black tracking-widest mb-1.5">ProteÃ­na</p>
+                  <p className="text-white/30 text-[9px] uppercase font-black tracking-widest mb-1.5">Proteína</p>
                   <p className="text-primary font-black text-3xl italic">{receta.proteina}g</p>
                 </div>
                 <div className="bg-white/5 border border-white/10 p-5 rounded-[20px] text-center hover:border-blue-400/50 transition-colors">
@@ -80,7 +80,7 @@ export default function RecetaDetalle() {
               </div>
             </div>
 
-            {/* SECCIÃ“N INGREDIENTES */}
+            {/* SECCIÓN INGREDIENTES */}
             <div>
               <h3 className="text-white/30 font-black uppercase text-[10px] tracking-[0.3em] mb-4">Ingredientes Necesarios</h3>
               <ul className="grid gap-3">
@@ -92,14 +92,14 @@ export default function RecetaDetalle() {
                 ))}
               </ul>
             </div>
-
+            
             {/* INSTRUCCIONES */}
             <div>
-               <h3 className="text-white/30 font-black uppercase text-[10px] tracking-[0.3em] mb-4">Instrucciones de PreparaciÃ³n</h3>
+               <h3 className="text-white/30 font-black uppercase text-[10px] tracking-[0.3em] mb-4">Instrucciones de Preparación</h3>
                <div className="bg-[#121212] p-8 rounded-3xl border border-white/5 shadow-2xl relative overflow-hidden group hover:border-primary/20 transition-all">
                   <div className="absolute -top-10 -right-10 opacity-5 text-primary text-9xl font-black italic">!</div>
                   <p className="text-white/70 font-medium leading-relaxed relative z-10">
-                     {receta.instrucciones || "Simplemente mezcla todos los ingredientes y cocÃ­nalos a tu gusto. Â¡Buen provecho!"}
+                     {receta.instrucciones || "Simplemente mezcla todos los ingredientes y cocínalos a tu gusto. ¡Buen provecho!"}
                   </p>
                </div>
             </div>
