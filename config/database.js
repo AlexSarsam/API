@@ -1,21 +1,23 @@
 const mysql = require('mysql2');
 
-// Crear pool de conexiones (mejor que conexión única)
 const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
+  host:     process.env.DB_HOST,
+  user:     process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: process.env.DB_PORT || 3306,
+  port:     process.env.DB_PORT || 3306,
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
+  queueLimit: 0,
+  charset: 'utf8mb4',
 });
 
-// Promisify para usar async/await
-const promisePool = pool.promise();
+// Al crear cada conexión del pool, forzamos UTF-8
+pool.on('connection', (connection) => {
+  connection.query('SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci');
+});
 
-// Verificar conexión inicial
+// Verificar que conecta al arrancar
 pool.getConnection((err, connection) => {
   if (err) {
     console.error('❌ Error conectando a la base de datos:', err.message);
@@ -25,4 +27,4 @@ pool.getConnection((err, connection) => {
   connection.release();
 });
 
-module.exports = promisePool;
+module.exports = pool.promise();

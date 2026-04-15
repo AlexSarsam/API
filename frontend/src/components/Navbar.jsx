@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 
 const navLinks = [
   { to: '/workouts', label: 'Workouts' },
+  { to: '/products', label: 'Products' },
 ];
 
 export default function Navbar() {
